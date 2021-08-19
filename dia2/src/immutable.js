@@ -11,8 +11,8 @@ const jane = {
   hobbies: [...john.hobbies, "MuayThai", "Programming"],
 };
 
-jane.name = "Jane";
-jane.hobbies.push("MuayThai", "Programming");
+// jane.name = "Jane";
+// jane.hobbies.push("MuayThai", "Programming");
 
 console.log("John:", john);
 console.log("Jane:", jane);
