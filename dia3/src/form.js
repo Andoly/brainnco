@@ -53,4 +53,4 @@ function createDivColor(value) {
 }
 
 form.appendChild(select);
-document.body.appendChild(colorsContainer);
+form.appendChild(colorsContainer);
