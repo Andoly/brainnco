@@ -1,4 +1,5 @@
 import "./style.css";
+import { get, post } from "./http";
 
 const url = "http://localhost:3333/cars";
 const form = document.querySelector('[data-js="cars-form"]');
@@ -39,7 +40,7 @@ function createColor(value) {
   return td;
 }
 
-form.addEventListener("submit", (event) => {
+form.addEventListener("submit", async (event) => {
   event.preventDefault();
   const getElement = getFormElement(event);
 
@@ -51,6 +52,14 @@ form.addEventListener("submit", (event) => {
     color: getElement("color").value,
   };
 
+  const result = await post(url, data);
+  if (result.error) {
+    console.log("Erro ao realizar cadastro", result.message);
+    return;
+  }
+
+  const noContent = document.querySelector('[data-js="no-content"]');
+  table.removeChild(noContent);
   createTableRow(data);
 
   event.target.reset();
@@ -59,7 +68,7 @@ form.addEventListener("submit", (event) => {
 
 function createTableRow(data) {
   const elements = [
-    { type: "image", value: data.image },
+    { type: "image", value: { src: data.image, alt: data.brandModel } },
     { type: "text", value: data.brandModel },
     { type: "text", value: data.year },
     { type: "text", value: data.plate },
@@ -81,14 +90,14 @@ function createNoCarRow() {
   const ths = document.querySelectorAll("th");
   td.setAttribute("colspan", ths.length);
   td.textContent = "Nenhum carro encontrado";
+
+  tr.dataset.js = "no-content";
   tr.appendChild(td);
   table.appendChild(tr);
 }
 
 async function main() {
-  const result = await fetch(url)
-    .then((response) => response.json())
-    .catch((e) => ({ error: true, message: e.message }));
+  const result = await get(url);
 
   if (result.error) {
     console.log("Erro ao buscar carros", result.message);
