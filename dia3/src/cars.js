@@ -50,6 +50,7 @@ form.addEventListener("submit", (event) => {
 
   const tr = document.createElement("tr");
   elements.forEach((element) => {
+    console.log(elementTypes[element.type]);
     const td = elementTypes[element.type](element.value);
     tr.appendChild(td);
   });
