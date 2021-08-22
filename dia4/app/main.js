@@ -53,8 +53,11 @@ form.addEventListener("submit", async (event) => {
   };
 
   const result = await post(url, data);
+  launchToast(result.message);
+
   if (result.error) {
-    console.log("Erro ao realizar cadastro", result.message);
+    // console.log("Erro ao realizar cadastro", result.message);
+    launchToast(result.message);
     return;
   }
 
@@ -70,7 +73,7 @@ form.addEventListener("submit", async (event) => {
 
 function createTableRow(data) {
   const elements = [
-    { type: "image", value: { src: data.image, alt: data.brandModel } },
+    { type: "image", value: data.image },
     { type: "text", value: data.brandModel },
     { type: "text", value: data.year },
     { type: "text", value: data.plate },
@@ -104,7 +107,8 @@ async function handleDelete(event) {
 
   const result = await del(url, { plate });
   if (result.error) {
-    console.log("Erro ao deletar", result.message);
+    // console.log("Erro ao deletar", result.message);
+    launchToast(result.message);
     return;
   }
 
@@ -112,9 +116,9 @@ async function handleDelete(event) {
   table.removeChild(tr);
   button.removeEventListener("click", handleDelete);
 
-  if (result.length === 0) {
+  const allTrs = table.querySelector("tr");
+  if (!allTrs) {
     createNoCarRow();
-    return;
   }
 }
 
@@ -134,7 +138,8 @@ async function main() {
   const result = await get(url);
 
   if (result.error) {
-    console.log("Erro ao buscar carros", result.message);
+    // console.log("Erro ao buscar carros", result.message);
+    launchToast(result.message);
     return;
   }
   if (result.length === 0) {
@@ -143,6 +148,17 @@ async function main() {
   }
 
   result.forEach(createTableRow);
+}
+
+function launchToast(message) {
+  const toast = document.querySelector('[data-js="toast"]');
+  toast.textContent = message;
+
+  toast.className = "show";
+  setTimeout(function (message) {
+    toast.className = toast.className.replace("show", "");
+    toast.textContent = "";
+  }, 5000);
 }
 
 main();

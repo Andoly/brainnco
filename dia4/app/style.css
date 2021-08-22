@@ -4,7 +4,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+  margin-top: 20px;
 }
 
 button {
@@ -30,4 +30,126 @@ table {
 }
 th {
   width: 120px;
+}
+
+/* toast notification */
+#toast {
+  visibility: hidden;
+  max-width: 100px;
+  height: 25px;
+  margin: auto;
+  background-color: #333;
+  color: #fff;
+  text-align: center;
+  border-radius: 2px;
+  z-index: 1;
+  left: 0;
+  right: 0;
+  bottom: 30px;
+  font-size: 17px;
+  white-space: nowrap;
+}
+
+#toast.show {
+  visibility: visible;
+  -webkit-animation: fadein 0.5s, expand 0.5s 0.5s, stay 3s 1s, shrink 0.5s 2s,
+    fadeout 0.5s 2.5s;
+  animation: fadein 0.5s, expand 0.5s 0.5s, stay 3s 1s, shrink 0.5s 4s,
+    fadeout 0.5s 4.5s;
+}
+
+@-webkit-keyframes fadein {
+  from {
+    bottom: 0;
+    opacity: 0;
+  }
+  to {
+    bottom: 30px;
+    opacity: 1;
+  }
+}
+
+@keyframes fadein {
+  from {
+    bottom: 0;
+    opacity: 0;
+  }
+  to {
+    bottom: 30px;
+    opacity: 1;
+  }
+}
+
+@-webkit-keyframes expand {
+  from {
+    min-width: 50px;
+  }
+  to {
+    min-width: 450px;
+  }
+}
+
+@keyframes expand {
+  from {
+    min-width: 50px;
+  }
+  to {
+    min-width: 450px;
+  }
+}
+@-webkit-keyframes stay {
+  from {
+    min-width: 450px;
+  }
+  to {
+    min-width: 450px;
+  }
+}
+
+@keyframes stay {
+  from {
+    min-width: 450px;
+  }
+  to {
+    min-width: 450px;
+  }
+}
+@-webkit-keyframes shrink {
+  from {
+    min-width: 450px;
+  }
+  to {
+    min-width: 50px;
+  }
+}
+
+@keyframes shrink {
+  from {
+    min-width: 450px;
+  }
+  to {
+    min-width: 50px;
+  }
+}
+
+@-webkit-keyframes fadeout {
+  from {
+    bottom: 30px;
+    opacity: 1;
+  }
+  to {
+    bottom: 60px;
+    opacity: 0;
+  }
+}
+
+@keyframes fadeout {
+  from {
+    bottom: 30px;
+    opacity: 1;
+  }
+  to {
+    bottom: 60px;
+    opacity: 0;
+  }
 }
